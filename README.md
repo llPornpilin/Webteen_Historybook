@@ -1,17 +1,17 @@
 # Webteen_Historybook
 ## Rabbit MQ
 * Get Book
-  * Queue GetBookQueue
-  * Exchange HistoryExchange
-  * Routing key getBook
+  * Queue -> GetBookQueue
+  * Exchange -> HistoryExchange
+  * Routing key -> getBook
 * Get History
-  * Queue GetHistoryQueue
-  * Exchange HistoryExchange
-  * Routing key getHistory
+  * Queue -> GetHistoryQueue
+  * Exchange -> HistoryExchange
+  * Routing key -> getHistory
 * Add History
-  * Queue AddHistoryQueue
-  * Exchange HistoryExchange
-  * Routing key addHistory
+  * Queue -> AddHistoryQueue
+  * Exchange -> HistoryExchange
+  * Routing key -> addHistory
 ## Path
 * Get Book
   * http://localhost:8082/history-service/getBook
