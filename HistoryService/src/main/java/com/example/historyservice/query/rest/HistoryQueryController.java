@@ -4,6 +4,7 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,13 @@ public class HistoryQueryController {
         messageProperties.setContentType("application/json");
         Object chapter = rabbitTemplate.convertSendAndReceive("HistoryExchange", "getChapter", "");
         return (ArrayList) chapter;
+    }
+
+    @GetMapping(value = "/getChapter/{chapterId}")
+    public ChapterRestModel getChapterByChapterId(@PathVariable("chapterId") String chapterId) {
+        MessageProperties messageProperties = new MessageProperties();
+        messageProperties.setContentType("application/json");
+        Object book = rabbitTemplate.convertSendAndReceive("HistoryExchange", "getChapterId", chapterId);
+        return (ChapterRestModel) book;
     }
 }

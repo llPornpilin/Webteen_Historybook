@@ -1,5 +1,6 @@
 package com.example.historyservice.query;
 
+import com.example.historyservice.query.rest.BookRestModel;
 import com.example.historyservice.query.rest.ChapterRestModel;
 import com.example.historyservice.query.rest.HistoryRestModel;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
@@ -35,6 +36,17 @@ public class HistoryQueryService {
         return queryGateway.query(
                 findHistoryQuery,
                 ResponseTypes.multipleInstancesOf(HistoryRestModel.class)
+        ).join();
+    }
+
+    @RabbitListener(queues = "GetChapterIdQueue")
+    public ChapterRestModel getChapterByChapterId(String chapterId) {
+        System.out.println("GET BOOK BY BOOK ID: " + chapterId);
+
+        FindChaptersByChapterIdQuery findChaptersByChapterIdQuery = new FindChaptersByChapterIdQuery(chapterId);
+        return queryGateway.query(
+                findChaptersByChapterIdQuery,
+                ResponseTypes.instanceOf(ChapterRestModel.class)
         ).join();
     }
 }

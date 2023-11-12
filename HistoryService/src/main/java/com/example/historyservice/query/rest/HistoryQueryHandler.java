@@ -1,9 +1,7 @@
 package com.example.historyservice.query.rest;
 
-import com.example.historyservice.core.data.ChapterEntity;
-import com.example.historyservice.core.data.ChapterRepository;
-import com.example.historyservice.core.data.HistoryEntity;
-import com.example.historyservice.core.data.HistoryRepository;
+import com.example.historyservice.core.data.*;
+import com.example.historyservice.query.FindChaptersByChapterIdQuery;
 import com.example.historyservice.query.FindChaptersQuery;
 import com.example.historyservice.query.FindHistoryQuery;
 import org.axonframework.queryhandling.QueryHandler;
@@ -18,10 +16,12 @@ import java.util.List;
 public class HistoryQueryHandler {
     private final ChapterRepository chapterRepository;
     private final HistoryRepository historyRepository;
+    private final BookRepository bookRepository;
 
-    public HistoryQueryHandler(ChapterRepository chapterRepository, HistoryRepository historyRepository) {
+    public HistoryQueryHandler(ChapterRepository chapterRepository, HistoryRepository historyRepository, BookRepository bookRepository) {
         this.chapterRepository = chapterRepository;
         this.historyRepository = historyRepository;
+        this.bookRepository = bookRepository;
     }
 
     @QueryHandler
@@ -34,6 +34,19 @@ public class HistoryQueryHandler {
             bookRest.add(chapterRestModel);
         }
         return bookRest;
+    }
+
+    @QueryHandler
+    public ChapterRestModel findChaptersByChapterId(FindChaptersByChapterIdQuery query) {
+        ChapterEntity chapterEntity = chapterRepository.findChapterEntitiesByChapterId(query.getChapterId());
+        if (chapterEntity != null) {
+            ChapterRestModel chapterRestModel = new ChapterRestModel();
+            BeanUtils.copyProperties(chapterEntity, chapterRestModel);
+            return chapterRestModel;
+        } else {
+            return null;
+        }
+
     }
 
 
