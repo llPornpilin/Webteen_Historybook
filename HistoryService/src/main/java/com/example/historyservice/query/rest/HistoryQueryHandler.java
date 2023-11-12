@@ -1,10 +1,10 @@
 package com.example.historyservice.query.rest;
 
-import com.example.historyservice.core.data.BookEntity;
-import com.example.historyservice.core.data.BookRepository;
+import com.example.historyservice.core.data.ChapterEntity;
+import com.example.historyservice.core.data.ChapterRepository;
 import com.example.historyservice.core.data.HistoryEntity;
 import com.example.historyservice.core.data.HistoryRepository;
-import com.example.historyservice.query.FindBooksQuery;
+import com.example.historyservice.query.FindChaptersQuery;
 import com.example.historyservice.query.FindHistoryQuery;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
@@ -16,22 +16,22 @@ import java.util.List;
 
 @Component
 public class HistoryQueryHandler {
-    private final BookRepository bookRepository;
+    private final ChapterRepository chapterRepository;
     private final HistoryRepository historyRepository;
 
-    public HistoryQueryHandler(BookRepository bookRepository, HistoryRepository historyRepository) {
-        this.bookRepository = bookRepository;
+    public HistoryQueryHandler(ChapterRepository chapterRepository, HistoryRepository historyRepository) {
+        this.chapterRepository = chapterRepository;
         this.historyRepository = historyRepository;
     }
 
     @QueryHandler
-    public List<BookRestModel> findBooks(FindBooksQuery query) {
-        List<BookRestModel> bookRest = new ArrayList<>();
-        List<BookEntity> storedBooks = bookRepository.findAll();
-        for (BookEntity bookEntity : storedBooks) {
-            BookRestModel bookRestModel = new BookRestModel();
-            BeanUtils.copyProperties(bookEntity, bookRestModel);
-            bookRest.add(bookRestModel);
+    public List<ChapterRestModel> findBooks(FindChaptersQuery query) {
+        List<ChapterRestModel> bookRest = new ArrayList<>();
+        List<ChapterEntity> storedBooks = chapterRepository.findAll();
+        for (ChapterEntity chapterEntity : storedBooks) {
+            ChapterRestModel chapterRestModel = new ChapterRestModel();
+            BeanUtils.copyProperties(chapterEntity, chapterRestModel);
+            bookRest.add(chapterRestModel);
         }
         return bookRest;
     }

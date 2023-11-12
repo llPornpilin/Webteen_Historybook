@@ -1,4 +1,4 @@
 package com.example.historyservice.query;
 
-public class FindBooksQuery {
+public class FindChaptersQuery {
 }

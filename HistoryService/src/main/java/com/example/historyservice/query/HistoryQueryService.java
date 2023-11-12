@@ -1,10 +1,9 @@
 package com.example.historyservice.query;
 
-import com.example.historyservice.query.rest.BookRestModel;
+import com.example.historyservice.query.rest.ChapterRestModel;
 import com.example.historyservice.query.rest.HistoryRestModel;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
-import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +19,13 @@ public class HistoryQueryService {
         this.queryGateway = queryGateway;
     }
 
-    @RabbitListener(queues = "GetBookQueue")
-    public List<BookRestModel> getBook() {
-        System.out.println("GET ALL BOOKS");
-        FindBooksQuery findBooksQuery = new FindBooksQuery();
+    @RabbitListener(queues = "GetChapterQueue")
+    public List<ChapterRestModel> getBook() {
+        System.out.println("GET ALL Chapter");
+        FindChaptersQuery findChaptersQuery = new FindChaptersQuery();
         return queryGateway.query(
-                findBooksQuery,
-                ResponseTypes.multipleInstancesOf(BookRestModel.class)
+                findChaptersQuery,
+                ResponseTypes.multipleInstancesOf(ChapterRestModel.class)
         ).join();
     }
 

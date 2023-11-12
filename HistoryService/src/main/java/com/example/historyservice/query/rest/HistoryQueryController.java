@@ -22,11 +22,11 @@ public class HistoryQueryController {
         return (ArrayList) historyBook;
     }
 
-    @GetMapping("/getBook")
+    @GetMapping("/getChapter")
     public ArrayList getBooks() {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType("application/json");
-        Object book = rabbitTemplate.convertSendAndReceive("HistoryExchange", "getBook", "");
-        return (ArrayList) book;
+        Object chapter = rabbitTemplate.convertSendAndReceive("HistoryExchange", "getChapter", "");
+        return (ArrayList) chapter;
     }
 }

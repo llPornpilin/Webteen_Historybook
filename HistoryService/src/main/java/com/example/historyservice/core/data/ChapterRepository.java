@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookRepository extends MongoRepository<BookEntity, String> {
-    @Query(value = "{'bookId' :  ?0}")
-    public BookEntity findBookEntityByBookId(String bookId);
+public interface ChapterRepository extends MongoRepository<ChapterEntity, String> {
+    @Query(value = "{'bookId': ?0, 'chapterId': ?1}")
+    public ChapterEntity findBookEntitiesByBookIdAndChapterId(String bookId, String chapterId);
 }
