@@ -12,6 +12,10 @@
   * Queue -> AddHistoryQueue
   * Exchange -> HistoryExchange
   * Routing key -> addHistory
+* Get Chapter by chapterId
+  * Queue -> GetChapterIdQueue
+  * Exchange -> HistoryExchange
+  * Routing key -> getHistory
 ## Path
 * Get Book
   * http://localhost:8082/history-service/getBook
